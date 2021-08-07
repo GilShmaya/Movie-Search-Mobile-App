@@ -3,11 +3,15 @@ package com.example.moviesearchmobileapp;
 import android.net.Uri;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
+import java.util.*;
 import java.util.Scanner;
 
 public class APiUtil {
@@ -59,5 +63,46 @@ public class APiUtil {
             connection.disconnect();
         }
 
+    }
+
+    public static ArrayList<Movie> getMovieFromJson(String json){ //parse the API data to the Movie object
+        final String id = "id";
+        final String movie_image = "poster_path";
+        final String movie_name = "title";
+        final String movie_description = "overview";
+        final String original_language = "original_language";
+        final String release_date = "release_date";
+        final String vote_average = "vote_average";
+        //final String genre_ids = "genre_ids";
+        final String results =  "results"; //the part that we need to read in the json
+
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        try{
+            JSONObject jsonMovies = new JSONObject(json);
+            JSONArray arrayMovies = jsonMovies.getJSONArray(results); //parse the "result" array from json to array
+            int movielist_len = arrayMovies.length();
+            for (int i = 0; i < movielist_len; i ++){
+                JSONObject movieJSON = arrayMovies.getJSONObject(i);
+                //int genre_len = movieJSON.getJSONArray(genre_ids).length();
+                //String[] genres = new String[genre_len];
+                //for(int j = 0 ; j < genre_len ; j ++){
+
+                //}
+                Movie movie = new Movie(
+                        movieJSON.getString(id),
+                        movieJSON.getString(movie_image),
+                        movieJSON.getString(movie_name),
+                        movieJSON.getString(movie_description),
+                        movieJSON.getString(original_language),
+                        movieJSON.getString(release_date),
+                        movieJSON.getInt(vote_average));
+                movies.add(movie);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return movies;
     }
 }

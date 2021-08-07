@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,8 +71,15 @@ public class MainActivity extends AppCompatActivity {
                 movieslist.setVisibility(View.VISIBLE);
                 loading_error.setVisibility(View.INVISIBLE);
             }
-
-            movieslist.setText(result);
+            ArrayList<Movie> movies = APiUtil.getMovieFromJson(result); // create a movies array from json
+            String resultString = "";
+            for(Movie movie: movies){
+                resultString = resultString + movie.getMovie_image() + "\n" +
+                        movie.getMovie_name() + "\n" +
+                        movie.getOriginal_language() + "\n" +
+                        movie.getVote_average() + "\n\n";
+            }
+            movieslist.setText(resultString);
         }
 
 

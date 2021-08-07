@@ -11,7 +11,7 @@
         android:layout_width="272dp"
         android:layout_height="0dp"
         android:layout_marginTop="28dp"
-        android:layout_marginBottom="231dp"
+        android:layout_marginBottom="47dp"
         android:gravity="center"
         android:text="@string/movie_search"
         android:textAlignment="center"
@@ -20,14 +20,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/movielist"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/scrollViewMovielist"
+        android:layout_width="379dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/AppName"
+        app:layout_constraintVertical_bias="0.051">
+
+        <TextView
+            android:id="@+id/movielist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -36,16 +49,16 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/loadingerror"
+        app:layout_constraintStart_toStartOf="@+id/loadingerror"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/loadingerror"
-        android:textSize="6pt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/error_data_message"
+        android:textSize="6pt"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
