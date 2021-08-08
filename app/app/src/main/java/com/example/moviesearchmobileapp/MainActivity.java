@@ -1,39 +1,72 @@
 package com.example.moviesearchmobileapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MenuItemCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     static String sortby = "popularity.desc"; // default sorting by
-    static String language = "en-US"; // default language
 
     private ProgressBar LoadingProgress;
+    private RecyclerView rv_movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LoadingProgress = (ProgressBar) findViewById(R.id.progressBar);
-
+        rv_movie = (RecyclerView) findViewById(R.id.recyclerView_movies);
+        LinearLayoutManager moviesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        rv_movie.setLayoutManager(moviesLayoutManager);
         try{
-            URL movieURL = APiUtil.buildURL(language, sortby);
+            URL movieURL = APiUtil.buildURL(sortby);
             new MovieQueryTask().execute(movieURL);
 
         } catch (Exception e) {
             Log.d("error", e.getMessage());
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.movie_list_menu, menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search); //get searching item
+        final SearchView searchView = (SearchView) searchItem.getActionView(); //returns the search action view that we set for this menu
+        searchView.setOnQueryTextListener(this); //to response to user's action
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) { //searching movies when the user submit a search
+        /*try{
+            URL movieURL = APiUtil.buildSearchURL(s);
+            new MovieQueryTask().execute(movieURL);
+        }
+        catch (Exception e){
+            Log.d("error", e.getMessage());
+        } */
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
     }
 
     public class MovieQueryTask extends AsyncTask<URL, Void, String>{
@@ -59,27 +92,20 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) { //after done loading the jason
-            //ScrollView movieslist = (ScrollView) findViewById(R.id.scrollViewmovie);
-            TextView movieslist = (TextView) findViewById(R.id.movielist);
             TextView loading_error = (TextView) findViewById(R.id.loadingerror);
             LoadingProgress.setVisibility(View.INVISIBLE);
             if(result == null){ // in a case of an error
-                movieslist.setVisibility(View.INVISIBLE);
+                rv_movie.setVisibility(View.INVISIBLE);
                 loading_error.setVisibility(View.VISIBLE);
             }
             else{
-                movieslist.setVisibility(View.VISIBLE);
+                rv_movie.setVisibility(View.VISIBLE);
                 loading_error.setVisibility(View.INVISIBLE);
             }
             ArrayList<Movie> movies = APiUtil.getMovieFromJson(result); // create a movies array from json
-            String resultString = "";
-            for(Movie movie: movies){
-                resultString = resultString + movie.getMovie_image() + "\n" +
-                        movie.getMovie_name() + "\n" +
-                        movie.getOriginal_language() + "\n" +
-                        movie.getVote_average() + "\n\n";
-            }
-            movieslist.setText(resultString);
+
+            MovieAdapter adapter = new MovieAdapter(movies); //adapts movie fields to layout
+            rv_movie.setAdapter(adapter);
         }
 
 

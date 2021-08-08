@@ -8,39 +8,28 @@
 
     <TextView
         android:id="@+id/AppName"
-        android:layout_width="272dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="47dp"
+        android:layout_width="331dp"
+        android:layout_height="103dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="@string/movie_search"
         android:textAlignment="center"
         android:textSize="12pt"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_movies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/scrollViewMovielist"
-        android:layout_width="379dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_movies"
+        android:layout_width="423dp"
+        android:layout_height="605dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AppName"
-        app:layout_constraintVertical_bias="0.051">
-
-        <TextView
-            android:id="@+id/movielist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@+id/AppName"></androidx.recyclerview.widget.RecyclerView>
 
     <ProgressBar
         android:id="@+id/progressBar"
