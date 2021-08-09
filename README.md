@@ -1,5 +1,4 @@
 # Movie Search Mobile App
- Movie Search Mobile App
 
 This project is an application that will allow users to browse through a selection of movies.
 
