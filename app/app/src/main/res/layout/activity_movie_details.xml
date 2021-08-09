@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android="http://schemas.android.com/apk/res/android">
+
     <data>
         <variable
             name="Movie"
@@ -12,14 +13,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         tools:context=".MovieDetails">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="198dp"
-            android:layout_height="166dp"
-            android:layout_marginStart="@dimen/standard_maegin"
-            android:layout_marginTop="@dimen/standard_maegin"
+            android:layout_width="115dp"
+            android:layout_height="145dp"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="24dp"
             android:imageUrl="@{Movie.movie_image}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
@@ -42,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="23dp"
             android:layout_marginStart="@dimen/standard_maegin"
-            android:layout_marginTop="@dimen/standard_maegin"
+            android:layout_marginTop="24dp"
             android:text="@{Movie.vote_average}"
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
@@ -61,7 +63,7 @@
 
         <TextView
             android:id="@+id/tvDescription"
-            android:layout_width="326dp"
+            android:layout_width="239dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/standard_maegin"
             android:text="@{Movie.movie_description}"
