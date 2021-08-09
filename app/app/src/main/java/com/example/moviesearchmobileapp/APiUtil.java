@@ -26,7 +26,7 @@ public class APiUtil {
     public static final String LanguageParam = "language";
     public static final String language = "en-US"; // default language
     public static final String Sort_ByParam = "sort_by";
-    public static final String Query = "query=";
+    public static final String Query = "query";
 
     public static URL buildURL(String sortby){ //selecting sort by options
         URL url = null;
@@ -44,11 +44,12 @@ public class APiUtil {
         return url;
     }
 
-    public static URL buildSearchURL(String query){
+    public static URL buildSearchURL(String query, String sortby){
         URL url = null;
         Uri uri = Uri.parse(SEARCH_API_URL).buildUpon()
                 .appendQueryParameter(KEY, API_KEY)
                 .appendQueryParameter(LanguageParam, language)
+                .appendQueryParameter(Sort_ByParam, sortby)
                 .appendQueryParameter(Query, query).build();
 
         try{
@@ -102,11 +103,7 @@ public class APiUtil {
             int movielist_len = arrayMovies.length();
             for (int i = 0; i < movielist_len; i ++){
                 JSONObject movieJSON = arrayMovies.getJSONObject(i);
-                //int genre_len = movieJSON.getJSONArray(genre_ids).length();
-                //String[] genres = new String[genre_len];
-                //for(int j = 0 ; j < genre_len ; j ++){
 
-                //}
                 Movie movie = new Movie(
                         movieJSON.getString(id),
                         movieJSON.getString(movie_image),

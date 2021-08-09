@@ -54,13 +54,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextSubmit(String s) { //searching movies when the user submit a search
-        /*try{
-            URL movieURL = APiUtil.buildSearchURL(s);
+        try{
+            URL movieURL = APiUtil.buildSearchURL(s, sortby);
+            //URL movieURL = APiUtil.buildURL(sortby);
             new MovieQueryTask().execute(movieURL);
         }
         catch (Exception e){
             Log.d("error", e.getMessage());
-        } */
+        }
         return false;
     }
 
