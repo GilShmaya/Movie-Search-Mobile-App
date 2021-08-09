@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     private ProgressBar LoadingProgress;
     private RecyclerView rv_movie;
+    private MovieAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         rv_movie = (RecyclerView) findViewById(R.id.recyclerView_movies);
         LinearLayoutManager moviesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rv_movie.setLayoutManager(moviesLayoutManager);
+        buildURL();
+    }
+
+    //executes the API request
+    private void buildURL(){
         try{
             URL movieURL = APiUtil.buildURL(sortby);
             new MovieQueryTask().execute(movieURL);
@@ -66,12 +72,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextChange(String s) {
-        try{
-            URL movieURL = APiUtil.buildSearchURL(s, sortby);
-            new MovieQueryTask().execute(movieURL);
-        }
-        catch (Exception e){
-            Log.d("error", e.getMessage());
+        if(s.equals("")){
+            buildURL();
         }
         return false;
     }
@@ -108,11 +110,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             else{
                 rv_movie.setVisibility(View.VISIBLE);
                 loading_error.setVisibility(View.INVISIBLE);
-            }
-            ArrayList<Movie> movies = APiUtil.getMovieFromJson(result); // create a movies array from json
+                ArrayList<Movie> movies = APiUtil.getMovieFromJson(result); // create a movies array from json
 
-            MovieAdapter adapter = new MovieAdapter(movies); //adapts movie fields to layout
-            rv_movie.setAdapter(adapter);
+                adapter = new MovieAdapter(movies); //adapts movie fields to layout
+                rv_movie.setAdapter(adapter);
+            }
+
         }
 
 
