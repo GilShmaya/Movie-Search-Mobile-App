@@ -12,6 +12,7 @@
         android:layout_width="199dp"
         android:layout_height="150dp"
         android:layout_marginTop="@dimen/standard_maegin"
+        android:textColor="@color/black"
         android:layout_weight="15"
         android:baselineAligned="false"
         android:padding="8dp"

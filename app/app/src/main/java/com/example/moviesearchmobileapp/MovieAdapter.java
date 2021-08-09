@@ -2,6 +2,10 @@ package com.example.moviesearchmobileapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder>{
@@ -27,7 +38,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     // is called when the RecyclerView needs a new ViewHolder
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        View itemView = LayoutInflater.from(context).inflate(R.layout.movie_list_item, parent, false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.activity_movie_item, parent, false);
         return new MovieViewHolder(itemView);
     }
 
@@ -61,12 +72,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
 
         public void bind (Movie movie){
-            //movieimage.setImageURI(Base_URL_Image + movie.getMovie_image());
+            //movieimage.setImageURI(Uri.parse(Base_URL_Image + movie.getMovie_image()));
             title.setText(movie.getMovie_name());
             vote_average.setText("Vote average: " + movie.getVote_average());
             release_date.setText("Release date: " + movie.getRelease_date());
-
+            Picasso.with(this.itemView.getContext()).load(Base_URL_Image + movie.getMovie_image()).into(movieimage);
+            itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {

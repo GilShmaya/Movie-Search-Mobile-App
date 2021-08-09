@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieSearchMobileApp">
         <activity
+            android:name=".movie_item"
+            android:exported="true" />
+        <activity
             android:name=".MovieDetails"
             android:exported="true" />
         <activity

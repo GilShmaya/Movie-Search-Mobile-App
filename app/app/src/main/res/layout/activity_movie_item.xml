@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="Movie"
+            type="com.example.moviesearchmobileapp.Movie" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="80"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/movieimage"
+            android:layout_width="199dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="@dimen/standard_maegin"
+            android:textColor="@color/black"
+            android:layout_weight="15"
+            android:baselineAligned="false"
+            android:padding="8dp"
+            android:src="@drawable/movie_loading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="186dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="@dimen/standard_maegin"
+            android:layout_marginEnd="@dimen/standard_maegin"
+            android:layout_weight="85"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.401"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/movieimage">
+
+            <TextView
+                android:id="@+id/moviename"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:baselineAligned="false"
+                android:text="@string/title"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/vote_average"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:baselineAligned="false"
+                android:text="@string/vote_average"
+                android:textAlignment="textStart"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/release_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="70"
+                android:baselineAligned="false"
+                android:text="@string/release_date"
+                android:textAlignment="textStart"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+ </layout>

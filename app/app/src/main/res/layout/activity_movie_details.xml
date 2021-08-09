@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="193dp"
-            android:layout_height="155dp"
+            android:layout_width="198dp"
+            android:layout_height="166dp"
             android:layout_marginStart="@dimen/standard_maegin"
             android:layout_marginTop="@dimen/standard_maegin"
             android:imageUrl="@{Movie.movie_image}"
